@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<extension key="hu.elelmiszerbank.sumfields" type="module">
+  <file>sumfields</file>
+  <name>Summary Fields</name>
+  <description>
+    This extension is based on the Summary Fields extension (net.ourpowerbase.sumfields v4.0.2) made by Jamie McClelland/Progressive Technology Project.
+    It adds some more fields like 30x amount of last contribution and the number of food packages made by the Company using that donation.
+  </description>
+  <license>GPL version 3</license>
+  <maintainer>
+    <author>Sandor Semsey</author>
+    <email>sandor.semsey@es-progress.hu</email>
+  </maintainer>
+  <releaseDate>2020-01-15</releaseDate>
+  <version>1.2</version>
+  <develStage>stable</develStage>
+  <compatibility>
+    <ver>5.7</ver>
+    <ver>5.18</ver>
+    <ver>5.20</ver>
+  </compatibility>
+  <comments>This extension adds custom data fields and triggers to your database. Disabling this extension will cause the custom data fields to be deleted and triggers removed.</comments>
+  <civix>
+    <namespace>CRM/Sumfields</namespace>
+  </civix>
+</extension>
