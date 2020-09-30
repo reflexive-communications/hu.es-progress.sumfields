@@ -6,9 +6,12 @@
  * The ExtensionUtil class provides small stubs for accessing resources of this
  * extension.
  */
-class CRM_Sumfields_ExtensionUtil {
+class CRM_Sumfields_ExtensionUtil
+{
   const SHORT_NAME = "sumfields";
-  const LONG_NAME = "hu.elelmiszerbank.sumfields";
+
+  const LONG_NAME = "hu.es-progress.sumfields";
+
   const CLASS_PREFIX = "CRM_Sumfields";
 
   /**
@@ -20,14 +23,17 @@ class CRM_Sumfields_ExtensionUtil {
    * @param string $text
    *   Canonical message text (generally en_US).
    * @param array $params
+   *
    * @return string
    *   Translated text.
    * @see ts
    */
-  public static function ts($text, $params = array()) {
+  public static function ts($text, $params = [])
+  {
     if (!array_key_exists('domain', $params)) {
-      $params['domain'] = array(self::LONG_NAME, NULL);
+      $params['domain'] = [self::LONG_NAME, null];
     }
+
     return ts($text, $params);
   }
 
@@ -36,10 +42,12 @@ class CRM_Sumfields_ExtensionUtil {
    *
    * @param string|NULL $file
    *   Ex: 'css/foo.css'.
+   *
    * @return string
    *   Ex: 'http://example.org/sites/default/ext/org.example.foo/css/foo.css'.
    */
-  public static function url($file = NULL) {
+  public static function url($file = null)
+  {
     return CRM_Core_Resources::singleton()->getUrl(self::LONG_NAME, $file);
   }
 
@@ -48,12 +56,14 @@ class CRM_Sumfields_ExtensionUtil {
    *
    * @param string|NULL $file
    *   Ex: 'css/foo.css'.
+   *
    * @return string
    *   Ex: '/var/www/example.org/sites/default/ext/org.example.foo/css/foo.css'.
    */
-  public static function path($file = NULL) {
+  public static function path($file = null)
+  {
     // return CRM_Core_Resources::singleton()->getPath(self::LONG_NAME, $file);
-    return __DIR__ . ($path === NULL ? '' : (DIRECTORY_SEPARATOR . $file));
+    return __DIR__.($path === null ? '' : (DIRECTORY_SEPARATOR.$file));
   }
 
   /**
@@ -61,11 +71,13 @@ class CRM_Sumfields_ExtensionUtil {
    *
    * @param string $suffix
    *   Ex: 'Page_HelloWorld' or 'Page\\HelloWorld'.
+   *
    * @return string
    *   Ex: 'CRM_Foo_Page_HelloWorld'.
    */
-  public static function findClass($suffix) {
-    return self::CLASS_PREFIX . '_' . str_replace('\\', '_', $suffix);
+  public static function findClass($suffix)
+  {
+    return self::CLASS_PREFIX.'_'.str_replace('\\', '_', $suffix);
   }
 
 }
@@ -77,26 +89,26 @@ use CRM_Sumfields_ExtensionUtil as E;
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_config
  */
-function _sumfields_civix_civicrm_config(&$config = NULL) {
-  static $configured = FALSE;
+function _sumfields_civix_civicrm_config(&$config = null)
+{
+  static $configured = false;
   if ($configured) {
     return;
   }
-  $configured = TRUE;
+  $configured = true;
 
   $template =& CRM_Core_Smarty::singleton();
 
-  $extRoot = dirname(__FILE__) . DIRECTORY_SEPARATOR;
-  $extDir = $extRoot . 'templates';
+  $extRoot = dirname(__FILE__).DIRECTORY_SEPARATOR;
+  $extDir = $extRoot.'templates';
 
   if (is_array($template->template_dir)) {
     array_unshift($template->template_dir, $extDir);
-  }
-  else {
-    $template->template_dir = array($extDir, $template->template_dir);
+  } else {
+    $template->template_dir = [$extDir, $template->template_dir];
   }
 
-  $include_path = $extRoot . PATH_SEPARATOR . get_include_path();
+  $include_path = $extRoot.PATH_SEPARATOR.get_include_path();
   set_include_path($include_path);
 }
 
@@ -107,8 +119,9 @@ function _sumfields_civix_civicrm_config(&$config = NULL) {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_xmlMenu
  */
-function _sumfields_civix_civicrm_xmlMenu(&$files) {
-  foreach (_sumfields_civix_glob(__DIR__ . '/xml/Menu/*.xml') as $file) {
+function _sumfields_civix_civicrm_xmlMenu(&$files)
+{
+  foreach (_sumfields_civix_glob(__DIR__.'/xml/Menu/*.xml') as $file) {
     $files[] = $file;
   }
 }
@@ -118,7 +131,8 @@ function _sumfields_civix_civicrm_xmlMenu(&$files) {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_install
  */
-function _sumfields_civix_civicrm_install() {
+function _sumfields_civix_civicrm_install()
+{
   _sumfields_civix_civicrm_config();
   if ($upgrader = _sumfields_civix_upgrader()) {
     $upgrader->onInstall();
@@ -130,10 +144,11 @@ function _sumfields_civix_civicrm_install() {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_postInstall
  */
-function _sumfields_civix_civicrm_postInstall() {
+function _sumfields_civix_civicrm_postInstall()
+{
   _sumfields_civix_civicrm_config();
   if ($upgrader = _sumfields_civix_upgrader()) {
-    if (is_callable(array($upgrader, 'onPostInstall'))) {
+    if (is_callable([$upgrader, 'onPostInstall'])) {
       $upgrader->onPostInstall();
     }
   }
@@ -144,7 +159,8 @@ function _sumfields_civix_civicrm_postInstall() {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_uninstall
  */
-function _sumfields_civix_civicrm_uninstall() {
+function _sumfields_civix_civicrm_uninstall()
+{
   _sumfields_civix_civicrm_config();
   if ($upgrader = _sumfields_civix_upgrader()) {
     $upgrader->onUninstall();
@@ -156,10 +172,11 @@ function _sumfields_civix_civicrm_uninstall() {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_enable
  */
-function _sumfields_civix_civicrm_enable() {
+function _sumfields_civix_civicrm_enable()
+{
   _sumfields_civix_civicrm_config();
   if ($upgrader = _sumfields_civix_upgrader()) {
-    if (is_callable(array($upgrader, 'onEnable'))) {
+    if (is_callable([$upgrader, 'onEnable'])) {
       $upgrader->onEnable();
     }
   }
@@ -171,10 +188,11 @@ function _sumfields_civix_civicrm_enable() {
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_disable
  * @return mixed
  */
-function _sumfields_civix_civicrm_disable() {
+function _sumfields_civix_civicrm_disable()
+{
   _sumfields_civix_civicrm_config();
   if ($upgrader = _sumfields_civix_upgrader()) {
-    if (is_callable(array($upgrader, 'onDisable'))) {
+    if (is_callable([$upgrader, 'onDisable'])) {
       $upgrader->onDisable();
     }
   }
@@ -191,7 +209,8 @@ function _sumfields_civix_civicrm_disable() {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_upgrade
  */
-function _sumfields_civix_civicrm_upgrade($op, CRM_Queue_Queue $queue = NULL) {
+function _sumfields_civix_civicrm_upgrade($op, CRM_Queue_Queue $queue = null)
+{
   if ($upgrader = _sumfields_civix_upgrader()) {
     return $upgrader->onUpgrade($op, $queue);
   }
@@ -200,11 +219,11 @@ function _sumfields_civix_civicrm_upgrade($op, CRM_Queue_Queue $queue = NULL) {
 /**
  * @return CRM_Sumfields_Upgrader
  */
-function _sumfields_civix_upgrader() {
-  if (!file_exists(__DIR__ . '/CRM/Sumfields/Upgrader.php')) {
-    return NULL;
-  }
-  else {
+function _sumfields_civix_upgrader()
+{
+  if (!file_exists(__DIR__.'/CRM/Sumfields/Upgrader.php')) {
+    return null;
+  } else {
     return CRM_Sumfields_Upgrader_Base::instance();
   }
 }
@@ -217,15 +236,17 @@ function _sumfields_civix_upgrader() {
  *
  * @param $dir string, base dir
  * @param $pattern string, glob pattern, eg "*.txt"
+ *
  * @return array(string)
  */
-function _sumfields_civix_find_files($dir, $pattern) {
-  if (is_callable(array('CRM_Utils_File', 'findFiles'))) {
+function _sumfields_civix_find_files($dir, $pattern)
+{
+  if (is_callable(['CRM_Utils_File', 'findFiles'])) {
     return CRM_Utils_File::findFiles($dir, $pattern);
   }
 
-  $todos = array($dir);
-  $result = array();
+  $todos = [$dir];
+  $result = [];
   while (!empty($todos)) {
     $subdir = array_shift($todos);
     foreach (_sumfields_civix_glob("$subdir/$pattern") as $match) {
@@ -234,19 +255,20 @@ function _sumfields_civix_find_files($dir, $pattern) {
       }
     }
     if ($dh = opendir($subdir)) {
-      while (FALSE !== ($entry = readdir($dh))) {
-        $path = $subdir . DIRECTORY_SEPARATOR . $entry;
+      while (false !== ($entry = readdir($dh))) {
+        $path = $subdir.DIRECTORY_SEPARATOR.$entry;
         if ($entry{0} == '.') {
-        }
-        elseif (is_dir($path)) {
+        } elseif (is_dir($path)) {
           $todos[] = $path;
         }
       }
       closedir($dh);
     }
   }
+
   return $result;
 }
+
 /**
  * (Delegated) Implements hook_civicrm_managed().
  *
@@ -254,7 +276,8 @@ function _sumfields_civix_find_files($dir, $pattern) {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_managed
  */
-function _sumfields_civix_civicrm_managed(&$entities) {
+function _sumfields_civix_civicrm_managed(&$entities)
+{
   $mgdFiles = _sumfields_civix_find_files(__DIR__, '*.mgd.php');
   foreach ($mgdFiles as $file) {
     $es = include $file;
@@ -279,23 +302,24 @@ function _sumfields_civix_civicrm_managed(&$entities) {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_caseTypes
  */
-function _sumfields_civix_civicrm_caseTypes(&$caseTypes) {
-  if (!is_dir(__DIR__ . '/xml/case')) {
+function _sumfields_civix_civicrm_caseTypes(&$caseTypes)
+{
+  if (!is_dir(__DIR__.'/xml/case')) {
     return;
   }
 
-  foreach (_sumfields_civix_glob(__DIR__ . '/xml/case/*.xml') as $file) {
+  foreach (_sumfields_civix_glob(__DIR__.'/xml/case/*.xml') as $file) {
     $name = preg_replace('/\.xml$/', '', basename($file));
     if ($name != CRM_Case_XMLProcessor::mungeCaseType($name)) {
       $errorMessage = sprintf("Case-type file name is malformed (%s vs %s)", $name, CRM_Case_XMLProcessor::mungeCaseType($name));
       CRM_Core_Error::fatal($errorMessage);
       // throw new CRM_Core_Exception($errorMessage);
     }
-    $caseTypes[$name] = array(
+    $caseTypes[$name] = [
       'module' => E::LONG_NAME,
       'name' => $name,
       'file' => $file,
-    );
+    ];
   }
 }
 
@@ -308,12 +332,13 @@ function _sumfields_civix_civicrm_caseTypes(&$caseTypes) {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_angularModules
  */
-function _sumfields_civix_civicrm_angularModules(&$angularModules) {
-  if (!is_dir(__DIR__ . '/ang')) {
+function _sumfields_civix_civicrm_angularModules(&$angularModules)
+{
+  if (!is_dir(__DIR__.'/ang')) {
     return;
   }
 
-  $files = _sumfields_civix_glob(__DIR__ . '/ang/*.ang.php');
+  $files = _sumfields_civix_glob(__DIR__.'/ang/*.ang.php');
   foreach ($files as $file) {
     $name = preg_replace(':\.ang\.php$:', '', basename($file));
     $module = include $file;
@@ -333,12 +358,16 @@ function _sumfields_civix_civicrm_angularModules(&$angularModules) {
  * This wrapper provides consistency.
  *
  * @link http://php.net/glob
+ *
  * @param string $pattern
+ *
  * @return array, possibly empty
  */
-function _sumfields_civix_glob($pattern) {
+function _sumfields_civix_glob($pattern)
+{
   $result = glob($pattern);
-  return is_array($result) ? $result : array();
+
+  return is_array($result) ? $result : [];
 }
 
 /**
@@ -348,30 +377,35 @@ function _sumfields_civix_glob($pattern) {
  * @param string $path - path where insertion should happen (ie. Administer/System Settings)
  * @param array $item - menu you need to insert (parent/child attributes will be filled for you)
  */
-function _sumfields_civix_insert_navigation_menu(&$menu, $path, $item) {
+function _sumfields_civix_insert_navigation_menu(&$menu, $path, $item)
+{
   // If we are done going down the path, insert menu
   if (empty($path)) {
-    $menu[] = array(
-      'attributes' => array_merge(array(
-        'label'      => CRM_Utils_Array::value('name', $item),
-        'active'     => 1,
-      ), $item),
-    );
-    return TRUE;
-  }
-  else {
+    $menu[] = [
+      'attributes' => array_merge(
+        [
+          'label' => CRM_Utils_Array::value('name', $item),
+          'active' => 1,
+        ],
+        $item
+      ),
+    ];
+
+    return true;
+  } else {
     // Find an recurse into the next level down
-    $found = FALSE;
+    $found = false;
     $path = explode('/', $path);
     $first = array_shift($path);
     foreach ($menu as $key => &$entry) {
       if ($entry['attributes']['name'] == $first) {
         if (!isset($entry['child'])) {
-          $entry['child'] = array();
+          $entry['child'] = [];
         }
         $found = _sumfields_civix_insert_navigation_menu($entry['child'], implode('/', $path), $item, $key);
       }
     }
+
     return $found;
   }
 }
@@ -379,8 +413,9 @@ function _sumfields_civix_insert_navigation_menu(&$menu, $path, $item) {
 /**
  * (Delegated) Implements hook_civicrm_navigationMenu().
  */
-function _sumfields_civix_navigationMenu(&$nodes) {
-  if (!is_callable(array('CRM_Core_BAO_Navigation', 'fixNavigationMenu'))) {
+function _sumfields_civix_navigationMenu(&$nodes)
+{
+  if (!is_callable(['CRM_Core_BAO_Navigation', 'fixNavigationMenu'])) {
     _sumfields_civix_fixNavigationMenu($nodes);
   }
 }
@@ -389,20 +424,25 @@ function _sumfields_civix_navigationMenu(&$nodes) {
  * Given a navigation menu, generate navIDs for any items which are
  * missing them.
  */
-function _sumfields_civix_fixNavigationMenu(&$nodes) {
+function _sumfields_civix_fixNavigationMenu(&$nodes)
+{
   $maxNavID = 1;
-  array_walk_recursive($nodes, function($item, $key) use (&$maxNavID) {
-    if ($key === 'navID') {
-      $maxNavID = max($maxNavID, $item);
+  array_walk_recursive(
+    $nodes,
+    function ($item, $key) use (&$maxNavID) {
+      if ($key === 'navID') {
+        $maxNavID = max($maxNavID, $item);
+      }
     }
-  });
-  _sumfields_civix_fixNavigationMenuItems($nodes, $maxNavID, NULL);
+  );
+  _sumfields_civix_fixNavigationMenuItems($nodes, $maxNavID, null);
 }
 
-function _sumfields_civix_fixNavigationMenuItems(&$nodes, &$maxNavID, $parentID) {
+function _sumfields_civix_fixNavigationMenuItems(&$nodes, &$maxNavID, $parentID)
+{
   $origKeys = array_keys($nodes);
   foreach ($origKeys as $origKey) {
-    if (!isset($nodes[$origKey]['attributes']['parentID']) && $parentID !== NULL) {
+    if (!isset($nodes[$origKey]['attributes']['parentID']) && $parentID !== null) {
       $nodes[$origKey]['attributes']['parentID'] = $parentID;
     }
     // If no navID, then assign navID and fix key.
@@ -424,14 +464,15 @@ function _sumfields_civix_fixNavigationMenuItems(&$nodes, &$maxNavID, $parentID)
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_alterSettingsFolders
  */
-function _sumfields_civix_civicrm_alterSettingsFolders(&$metaDataFolders = NULL) {
-  static $configured = FALSE;
+function _sumfields_civix_civicrm_alterSettingsFolders(&$metaDataFolders = null)
+{
+  static $configured = false;
   if ($configured) {
     return;
   }
-  $configured = TRUE;
+  $configured = true;
 
-  $settingsDir = __DIR__ . DIRECTORY_SEPARATOR . 'settings';
+  $settingsDir = __DIR__.DIRECTORY_SEPARATOR.'settings';
   if (is_dir($settingsDir) && !in_array($settingsDir, $metaDataFolders)) {
     $metaDataFolders[] = $settingsDir;
   }

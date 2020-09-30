@@ -28,7 +28,6 @@
  *
  **/
 
-
 /**
  * Define a few trigger sql queries first - because they need to be
  * referenced first for a total number and a second time for the
@@ -50,7 +49,7 @@ $custom = [
   'groups' => [
     'summary_fields' => [
       'name' => 'Summary_Fields',
-      'title' => ts('Summary Fields', ['domain' => 'hu.elelmiszerbank.sumfields']),
+      'title' => ts('Summary Fields', ['domain' => 'hu.es-progress.sumfields']),
       'extends' => 'Contact',
       'style' => 'Tab',
       'collapse_display' => '0',
@@ -77,7 +76,7 @@ $custom = [
   ],
   'fields' => [
     'contribution_total_lifetime' => [
-      'label' => ts('Total Lifetime Contributions', ['domain' => 'hu.elelmiszerbank.sumfields']),
+      'label' => ts('Total Lifetime Contributions', ['domain' => 'hu.es-progress.sumfields']),
       'data_type' => 'Money',
       'html_type' => 'Text',
       'weight' => '10',
@@ -92,7 +91,7 @@ $custom = [
       'optgroup' => 'fundraising',
     ],
     'contribution_total_lifetime_simplified' => [
-      'label' => ts('Total Lifetime Contributions (Simplified)', ['domain' => 'hu.elelmiszerbank.sumfields']),
+      'label' => ts('Total Lifetime Contributions (Simplified)', ['domain' => 'hu.es-progress.sumfields']),
       'data_type' => 'Money',
       'html_type' => 'Text',
       'weight' => '10',
@@ -104,7 +103,7 @@ $custom = [
       'optgroup' => 'fundraising',
     ],
     'contribution_total_this_year' => [
-      'label' => ts('Total Contributions this Fiscal Year', ['domain' => 'hu.elelmiszerbank.sumfields']),
+      'label' => ts('Total Contributions this Fiscal Year', ['domain' => 'hu.es-progress.sumfields']),
       'data_type' => 'Money',
       'html_type' => 'Text',
       'weight' => '15',
@@ -118,23 +117,8 @@ $custom = [
       'trigger_table' => 'civicrm_line_item',
       'optgroup' => 'fundraising',
     ],
-    '30x_contribution_total_this_year' => [
-      'label' => ts('30x Total Contributions this Fiscal Year', ['domain' => 'hu.elelmiszerbank.sumfields']),
-      'data_type' => 'Money',
-      'html_type' => 'Text',
-      'weight' => '15',
-      'text_length' => '32',
-      'trigger_sql' => '(SELECT (COALESCE(SUM(line_total),0) * 30)
-      FROM civicrm_contribution t1
-      JOIN civicrm_line_item t2 ON t1.id = t2.contribution_id
-      WHERE CAST(receive_date AS DATE) BETWEEN "%current_fiscal_year_begin"
-      AND "%current_fiscal_year_end" AND t1.contact_id = (SELECT contact_id FROM civicrm_contribution cc WHERE cc.id = NEW.contribution_id) AND
-      t1.contribution_status_id = 1 AND t2.financial_type_id IN (%financial_type_ids) AND t1.is_test = 0)',
-      'trigger_table' => 'civicrm_line_item',
-      'optgroup' => 'fundraising',
-    ],
     'contribution_total_this_year_simplified' => [
-      'label' => ts('Total Contributions this Fiscal Year (Simplified)', ['domain' => 'hu.elelmiszerbank.sumfields']),
+      'label' => ts('Total Contributions this Fiscal Year (Simplified)', ['domain' => 'hu.es-progress.sumfields']),
       'data_type' => 'Money',
       'html_type' => 'Text',
       'weight' => '15',
@@ -147,7 +131,7 @@ $custom = [
       'optgroup' => 'fundraising',
     ],
     'contribution_total_twelve_months' => [
-      'label' => ts('Total Contributions in the Last 12 Months', ['domain' => 'hu.elelmiszerbank.sumfields']),
+      'label' => ts('Total Contributions in the Last 12 Months', ['domain' => 'hu.es-progress.sumfields']),
       'data_type' => 'Money',
       'html_type' => 'Text',
       'weight' => '15',
@@ -162,8 +146,10 @@ $custom = [
       'optgroup' => 'fundraising',
     ],
     'contribution_total_twelve_months_simplified' => [
-      'label' => ts('Total Contributions in the Last 12 Months (Simplified)',
-        ['domain' => 'hu.elelmiszerbank.sumfields']),
+      'label' => ts(
+        'Total Contributions in the Last 12 Months (Simplified)',
+        ['domain' => 'hu.es-progress.sumfields']
+      ),
       'data_type' => 'Money',
       'html_type' => 'Text',
       'weight' => '15',
@@ -176,7 +162,7 @@ $custom = [
       'optgroup' => 'fundraising',
     ],
     'contribution_total_deductible_this_year' => [
-      'label' => ts('Total Deductible Contributions this Fiscal Year', ['domain' => 'hu.elelmiszerbank.sumfields']),
+      'label' => ts('Total Deductible Contributions this Fiscal Year', ['domain' => 'hu.es-progress.sumfields']),
       'data_type' => 'Money',
       'html_type' => 'Text',
       'weight' => '15',
@@ -192,8 +178,10 @@ $custom = [
       'optgroup' => 'fundraising',
     ],
     'contribution_total_deductible_this_year_simplified' => [
-      'label' => ts('Total Deductible Contributions this Fiscal Year (Simplified)',
-        ['domain' => 'hu.elelmiszerbank.sumfields']),
+      'label' => ts(
+        'Total Deductible Contributions this Fiscal Year (Simplified)',
+        ['domain' => 'hu.es-progress.sumfields']
+      ),
       'data_type' => 'Money',
       'html_type' => 'Text',
       'weight' => '15',
@@ -208,7 +196,7 @@ $custom = [
       'optgroup' => 'fundraising',
     ],
     'contribution_total_last_year' => [
-      'label' => ts('Total Contributions last Fiscal Year', ['domain' => 'hu.elelmiszerbank.sumfields']),
+      'label' => ts('Total Contributions last Fiscal Year', ['domain' => 'hu.es-progress.sumfields']),
       'data_type' => 'Money',
       'html_type' => 'Text',
       'weight' => '20',
@@ -223,7 +211,7 @@ $custom = [
       'optgroup' => 'fundraising',
     ],
     'contribution_total_last_year_simplified' => [
-      'label' => ts('Total Contributions last Fiscal Year (Simplified)', ['domain' => 'hu.elelmiszerbank.sumfields']),
+      'label' => ts('Total Contributions last Fiscal Year (Simplified)', ['domain' => 'hu.es-progress.sumfields']),
       'data_type' => 'Money',
       'html_type' => 'Text',
       'weight' => '20',
@@ -236,7 +224,7 @@ $custom = [
       'optgroup' => 'fundraising',
     ],
     'contribution_total_deductible_last_year' => [
-      'label' => ts('Total Deductible Contributions last Fiscal Year', ['domain' => 'hu.elelmiszerbank.sumfields']),
+      'label' => ts('Total Deductible Contributions last Fiscal Year', ['domain' => 'hu.es-progress.sumfields']),
       'data_type' => 'Money',
       'html_type' => 'Text',
       'weight' => '15',
@@ -252,8 +240,10 @@ $custom = [
       'optgroup' => 'fundraising',
     ],
     'contribution_total_deductible_last_year_simplified' => [
-      'label' => ts('Total Deductible Contributions last Fiscal Year (Simplified)',
-        ['domain' => 'hu.elelmiszerbank.sumfields']),
+      'label' => ts(
+        'Total Deductible Contributions last Fiscal Year (Simplified)',
+        ['domain' => 'hu.es-progress.sumfields']
+      ),
       'data_type' => 'Money',
       'html_type' => 'Text',
       'weight' => '15',
@@ -268,7 +258,7 @@ $custom = [
       'optgroup' => 'fundraising',
     ],
     'contribution_total_year_before_last' => [
-      'label' => ts('Total Contributions Fiscal Year Before Last', ['domain' => 'hu.elelmiszerbank.sumfields']),
+      'label' => ts('Total Contributions Fiscal Year Before Last', ['domain' => 'hu.es-progress.sumfields']),
       'data_type' => 'Money',
       'html_type' => 'Text',
       'weight' => '20',
@@ -283,8 +273,10 @@ $custom = [
       'optgroup' => 'fundraising',
     ],
     'contribution_total_year_before_last_simplified' => [
-      'label' => ts('Total Contributions Fiscal Year Before Last (Simplified)',
-        ['domain' => 'hu.elelmiszerbank.sumfields']),
+      'label' => ts(
+        'Total Contributions Fiscal Year Before Last (Simplified)',
+        ['domain' => 'hu.es-progress.sumfields']
+      ),
       'data_type' => 'Money',
       'html_type' => 'Text',
       'weight' => '20',
@@ -297,8 +289,10 @@ $custom = [
       'optgroup' => 'fundraising',
     ],
     'contribution_total_deductible_year_before_last_year' => [
-      'label' => ts('Total Deductible Contributions Fiscal Year Before Last',
-        ['domain' => 'hu.elelmiszerbank.sumfields']),
+      'label' => ts(
+        'Total Deductible Contributions Fiscal Year Before Last',
+        ['domain' => 'hu.es-progress.sumfields']
+      ),
       'data_type' => 'Money',
       'html_type' => 'Text',
       'weight' => '15',
@@ -314,8 +308,10 @@ $custom = [
       'optgroup' => 'fundraising',
     ],
     'contribution_total_deductible_year_before_last_year_simplified' => [
-      'label' => ts('Total Deductible Contributions Fiscal Year Before Last (Simplified)',
-        ['domain' => 'hu.elelmiszerbank.sumfields']),
+      'label' => ts(
+        'Total Deductible Contributions Fiscal Year Before Last (Simplified)',
+        ['domain' => 'hu.es-progress.sumfields']
+      ),
       'data_type' => 'Money',
       'html_type' => 'Text',
       'weight' => '15',
@@ -330,7 +326,7 @@ $custom = [
       'optgroup' => 'fundraising',
     ],
     'contribution_amount_last' => [
-      'label' => ts('Amount of last contribution', ['domain' => 'hu.elelmiszerbank.sumfields']),
+      'label' => ts('Amount of last contribution', ['domain' => 'hu.es-progress.sumfields']),
       'data_type' => 'Money',
       'html_type' => 'Text',
       'weight' => '25',
@@ -344,38 +340,8 @@ $custom = [
       'trigger_table' => 'civicrm_line_item',
       'optgroup' => 'fundraising',
     ],
-    '30x_contribution_amount_last' => [
-      'label' => ts('30x Amount of last contribution', ['domain' => 'hu.elelmiszerbank.sumfields']),
-      'data_type' => 'Money',
-      'html_type' => 'Text',
-      'weight' => '25',
-      'text_length' => '32',
-      'trigger_sql' => '(SELECT (COALESCE(total_amount,0) * 30)
-      FROM civicrm_contribution t1
-      JOIN civicrm_line_item t2 ON t1.id = t2.contribution_id
-      WHERE t1.contact_id = (SELECT contact_id FROM civicrm_contribution cc WHERE cc.id = NEW.contribution_id)
-      AND t1.contribution_status_id = 1 AND t2.financial_type_id IN
-      (%financial_type_ids) AND t1.is_test = 0 ORDER BY t1.receive_date DESC LIMIT 1)',
-      'trigger_table' => 'civicrm_line_item',
-      'optgroup' => 'fundraising',
-    ],
-    'number_of_packages_last' => [
-      'label' => ts('Number of packages made by last contribution', ['domain' => 'hu.elelmiszerbank.sumfields']),
-      'data_type' => 'Int',
-      'html_type' => 'Text',
-      'weight' => '25',
-      'text_length' => '32',
-      'trigger_sql' => '(SELECT ROUND(COALESCE(total_amount,0) / 56)
-      FROM civicrm_contribution t1
-      JOIN civicrm_line_item t2 ON t1.id = t2.contribution_id
-      WHERE t1.contact_id = (SELECT contact_id FROM civicrm_contribution cc WHERE cc.id = NEW.contribution_id)
-      AND t1.contribution_status_id = 1 AND t2.financial_type_id IN
-      (%financial_type_ids) AND t1.is_test = 0 ORDER BY t1.receive_date DESC LIMIT 1)',
-      'trigger_table' => 'civicrm_line_item',
-      'optgroup' => 'fundraising',
-    ],
     'contribution_amount_last_simplified' => [
-      'label' => ts('Amount of last contribution (Simplified)', ['domain' => 'hu.elelmiszerbank.sumfields']),
+      'label' => ts('Amount of last contribution (Simplified)', ['domain' => 'hu.es-progress.sumfields']),
       'data_type' => 'Money',
       'html_type' => 'Text',
       'weight' => '25',
@@ -388,7 +354,7 @@ $custom = [
       'optgroup' => 'fundraising',
     ],
     'contribution_date_last' => [
-      'label' => ts('Date of Last Contribution', ['domain' => 'hu.elelmiszerbank.sumfields']),
+      'label' => ts('Date of Last Contribution', ['domain' => 'hu.es-progress.sumfields']),
       'data_type' => 'Date',
       'html_type' => 'Select Date',
       'weight' => '30',
@@ -401,7 +367,7 @@ $custom = [
       'optgroup' => 'fundraising',
     ],
     'contribution_date_last_simplified' => [
-      'label' => ts('Date of Last Contribution (Simplified)', ['domain' => 'hu.elelmiszerbank.sumfields']),
+      'label' => ts('Date of Last Contribution (Simplified)', ['domain' => 'hu.es-progress.sumfields']),
       'data_type' => 'Date',
       'html_type' => 'Select Date',
       'weight' => '30',
@@ -413,7 +379,7 @@ $custom = [
       'optgroup' => 'fundraising',
     ],
     'contribution_date_first' => [
-      'label' => ts('Date of First Contribution', ['domain' => 'hu.elelmiszerbank.sumfields']),
+      'label' => ts('Date of First Contribution', ['domain' => 'hu.es-progress.sumfields']),
       'data_type' => 'Date',
       'html_type' => 'Select Date',
       'weight' => '35',
@@ -426,7 +392,7 @@ $custom = [
       'optgroup' => 'fundraising',
     ],
     'contribution_date_first_simplified' => [
-      'label' => ts('Date of First Contribution (Simplified)', ['domain' => 'hu.elelmiszerbank.sumfields']),
+      'label' => ts('Date of First Contribution (Simplified)', ['domain' => 'hu.es-progress.sumfields']),
       'data_type' => 'Date',
       'html_type' => 'Select Date',
       'weight' => '35',
@@ -438,7 +404,7 @@ $custom = [
       'optgroup' => 'fundraising',
     ],
     'contribution_largest' => [
-      'label' => ts('Largest Contribution', ['domain' => 'hu.elelmiszerbank.sumfields']),
+      'label' => ts('Largest Contribution', ['domain' => 'hu.es-progress.sumfields']),
       'data_type' => 'Money',
       'html_type' => 'Text',
       'weight' => '40',
@@ -452,7 +418,7 @@ $custom = [
       'optgroup' => 'fundraising',
     ],
     'contribution_largest_last_12_months' => [
-      'label' => ts('Largest Contribution in the last 12 Months', ['domain' => 'hu.elelmiszerbank.sumfields']),
+      'label' => ts('Largest Contribution in the last 12 Months', ['domain' => 'hu.es-progress.sumfields']),
       'data_type' => 'Money',
       'html_type' => 'Text',
       'weight' => '40',
@@ -467,7 +433,7 @@ $custom = [
       'optgroup' => 'fundraising',
     ],
     'contribution_largest_simplified' => [
-      'label' => ts('Largest Contribution (Simplified)', ['domain' => 'hu.elelmiszerbank.sumfields']),
+      'label' => ts('Largest Contribution (Simplified)', ['domain' => 'hu.es-progress.sumfields']),
       'data_type' => 'Money',
       'html_type' => 'Text',
       'weight' => '40',
@@ -479,7 +445,7 @@ $custom = [
       'optgroup' => 'fundraising',
     ],
     'contribution_total_number' => [
-      'label' => ts('Count of Contributions', ['domain' => 'hu.elelmiszerbank.sumfields']),
+      'label' => ts('Count of Contributions', ['domain' => 'hu.es-progress.sumfields']),
       'data_type' => 'Int',
       'html_type' => 'Text',
       'weight' => '45',
@@ -492,7 +458,7 @@ $custom = [
       'optgroup' => 'fundraising',
     ],
     'contribution_total_number_1_months' => [
-      'label' => ts('Count of Contributions in Last 1 Month', ['domain' => 'hu.elelmiszerbank.sumfields']),
+      'label' => ts('Count of Contributions in Last 1 Month', ['domain' => 'hu.es-progress.sumfields']),
       'data_type' => 'Int',
       'html_type' => 'Text',
       'weight' => '45',
@@ -506,7 +472,7 @@ $custom = [
       'optgroup' => 'fundraising',
     ],
     'contribution_total_number_45_days' => [
-      'label' => ts('Count of Contributions in Last 45 Days', ['domain' => 'hu.elelmiszerbank.sumfields']),
+      'label' => ts('Count of Contributions in Last 45 Days', ['domain' => 'hu.es-progress.sumfields']),
       'data_type' => 'Int',
       'html_type' => 'Text',
       'weight' => '45',
@@ -520,7 +486,7 @@ $custom = [
       'optgroup' => 'fundraising',
     ],
     'contribution_total_number_62_days' => [
-      'label' => ts('Count of Contributions in Last 62 Days', ['domain' => 'hu.elelmiszerbank.sumfields']),
+      'label' => ts('Count of Contributions in Last 62 Days', ['domain' => 'hu.es-progress.sumfields']),
       'data_type' => 'Int',
       'html_type' => 'Text',
       'weight' => '45',
@@ -534,7 +500,7 @@ $custom = [
       'optgroup' => 'fundraising',
     ],
     'contribution_total_number_3_months' => [
-      'label' => ts('Count of Contributions in Last 3 Months', ['domain' => 'hu.elelmiszerbank.sumfields']),
+      'label' => ts('Count of Contributions in Last 3 Months', ['domain' => 'hu.es-progress.sumfields']),
       'data_type' => 'Int',
       'html_type' => 'Text',
       'weight' => '45',
@@ -548,7 +514,7 @@ $custom = [
       'optgroup' => 'fundraising',
     ],
     'contribution_total_number_6_months' => [
-      'label' => ts('Count of Contributions in Last 6 Months', ['domain' => 'hu.elelmiszerbank.sumfields']),
+      'label' => ts('Count of Contributions in Last 6 Months', ['domain' => 'hu.es-progress.sumfields']),
       'data_type' => 'Int',
       'html_type' => 'Text',
       'weight' => '45',
@@ -562,7 +528,7 @@ $custom = [
       'optgroup' => 'fundraising',
     ],
     'contribution_total_number_12_months' => [
-      'label' => ts('Count of Contributions in Last 12 Months', ['domain' => 'hu.elelmiszerbank.sumfields']),
+      'label' => ts('Count of Contributions in Last 12 Months', ['domain' => 'hu.es-progress.sumfields']),
       'data_type' => 'Int',
       'html_type' => 'Text',
       'weight' => '45',
@@ -575,9 +541,8 @@ $custom = [
       'trigger_table' => 'civicrm_line_item',
       'optgroup' => 'fundraising',
     ],
-
     'contribution_total_number_simplified' => [
-      'label' => ts('Count of Contributions (Simplified)', ['domain' => 'hu.elelmiszerbank.sumfields']),
+      'label' => ts('Count of Contributions (Simplified)', ['domain' => 'hu.es-progress.sumfields']),
       'data_type' => 'Int',
       'html_type' => 'Text',
       'weight' => '45',
@@ -589,7 +554,7 @@ $custom = [
       'optgroup' => 'fundraising',
     ],
     'contribution_average_annual_amount' => [
-      'label' => ts('Average Annual (Calendar Year) Contribution', ['domain' => 'hu.elelmiszerbank.sumfields']),
+      'label' => ts('Average Annual (Calendar Year) Contribution', ['domain' => 'hu.es-progress.sumfields']),
       'data_type' => 'Money',
       'html_type' => 'Text',
       'weight' => '50',
@@ -606,8 +571,10 @@ $custom = [
       'optgroup' => 'fundraising',
     ],
     'contribution_average_annual_amount_simplified' => [
-      'label' => ts('Average Annual (Calendar Year) Contribution (Simplified)',
-        ['domain' => 'hu.elelmiszerbank.sumfields']),
+      'label' => ts(
+        'Average Annual (Calendar Year) Contribution (Simplified)',
+        ['domain' => 'hu.es-progress.sumfields']
+      ),
       'data_type' => 'Money',
       'html_type' => 'Text',
       'weight' => '50',
@@ -621,7 +588,7 @@ $custom = [
       'optgroup' => 'fundraising',
     ],
     'soft_total_lifetime' => [
-      'label' => ts('Total Lifetime Soft Credits', ['domain' => 'hu.elelmiszerbank.sumfields']),
+      'label' => ts('Total Lifetime Soft Credits', ['domain' => 'hu.es-progress.sumfields']),
       'data_type' => 'Money',
       'html_type' => 'Text',
       'weight' => '10',
@@ -633,7 +600,7 @@ $custom = [
       'optgroup' => 'soft',
     ],
     'soft_total_this_year' => [
-      'label' => ts('Total Soft Credits this Fiscal Year', ['domain' => 'hu.elelmiszerbank.sumfields']),
+      'label' => ts('Total Soft Credits this Fiscal Year', ['domain' => 'hu.es-progress.sumfields']),
       'data_type' => 'Money',
       'html_type' => 'Text',
       'weight' => '15',
@@ -648,7 +615,7 @@ $custom = [
       'optgroup' => 'soft',
     ],
     'soft_total_twelve_months' => [
-      'label' => ts('Total Soft Credits in the Last 12 Months', ['domain' => 'hu.elelmiszerbank.sumfields']),
+      'label' => ts('Total Soft Credits in the Last 12 Months', ['domain' => 'hu.es-progress.sumfields']),
       'data_type' => 'Money',
       'html_type' => 'Text',
       'weight' => '15',
@@ -663,7 +630,7 @@ $custom = [
       'optgroup' => 'soft',
     ],
     'contribution_date_last_membership_payment' => [
-      'label' => ts('Date of Last Membership Payment', ['domain' => 'hu.elelmiszerbank.sumfields']),
+      'label' => ts('Date of Last Membership Payment', ['domain' => 'hu.es-progress.sumfields']),
       'data_type' => 'Date',
       'html_type' => 'Select Date',
       'weight' => '55',
@@ -677,7 +644,7 @@ $custom = [
       'optgroup' => 'membership',
     ],
     'contribution_date_last_membership_payment_simplified' => [
-      'label' => ts('Date of Last Membership Payment (simplified)', ['domain' => 'hu.elelmiszerbank.sumfields']),
+      'label' => ts('Date of Last Membership Payment (simplified)', ['domain' => 'hu.es-progress.sumfields']),
       'data_type' => 'Date',
       'html_type' => 'Select Date',
       'weight' => '55',
@@ -690,7 +657,7 @@ $custom = [
       'optgroup' => 'membership',
     ],
     'contribution_amount_last_membership_payment' => [
-      'label' => ts('Amount of Last Membership Payment', ['domain' => 'hu.elelmiszerbank.sumfields']),
+      'label' => ts('Amount of Last Membership Payment', ['domain' => 'hu.es-progress.sumfields']),
       'data_type' => 'Money',
       'html_type' => 'Text',
       'weight' => '60',
@@ -704,7 +671,7 @@ $custom = [
       'optgroup' => 'membership',
     ],
     'contribution_amount_last_membership_payment_simplified' => [
-      'label' => ts('Amount of Last Membership Payment (simplified)', ['domain' => 'hu.elelmiszerbank.sumfields']),
+      'label' => ts('Amount of Last Membership Payment (simplified)', ['domain' => 'hu.es-progress.sumfields']),
       'data_type' => 'Money',
       'html_type' => 'Text',
       'weight' => '60',
@@ -717,22 +684,24 @@ $custom = [
       'optgroup' => 'membership',
     ],
     'event_last_attended_name' => [
-      'label' => ts('Name of the last attended event', ['domain' => 'hu.elelmiszerbank.sumfields']),
+      'label' => ts('Name of the last attended event', ['domain' => 'hu.es-progress.sumfields']),
       'data_type' => 'String',
       'html_type' => 'Text',
       'weight' => '65',
       'text_length' => '128',
       'is_search_range' => '0',
-      'trigger_sql' => sumfields_multilingual_rewrite('(SELECT civicrm_event.title AS summary_value
+      'trigger_sql' => sumfields_multilingual_rewrite(
+        '(SELECT civicrm_event.title AS summary_value
       FROM civicrm_participant t1 JOIN civicrm_event ON t1.event_id = civicrm_event.id
       WHERE t1.contact_id = NEW.contact_id AND t1.status_id IN (%participant_status_ids)
       AND civicrm_event.event_type_id IN (%event_type_ids) AND t1.is_test = 0
-      ORDER BY start_date DESC LIMIT 1)'),
+      ORDER BY start_date DESC LIMIT 1)'
+      ),
       'trigger_table' => 'civicrm_participant',
       'optgroup' => 'event_standard',
     ],
     'event_last_attended_date' => [
-      'label' => ts('Date of the last attended event', ['domain' => 'hu.elelmiszerbank.sumfields']),
+      'label' => ts('Date of the last attended event', ['domain' => 'hu.es-progress.sumfields']),
       'data_type' => 'Date',
       'html_type' => 'Select Date',
       'weight' => '70',
@@ -745,7 +714,7 @@ $custom = [
     ],
 
     'event_total' => [
-      'label' => ts('Total Number of events', ['domain' => 'hu.elelmiszerbank.sumfields']),
+      'label' => ts('Total Number of events', ['domain' => 'hu.es-progress.sumfields']),
       'data_type' => 'Int',
       'html_type' => 'Text',
       'weight' => '75',
@@ -755,7 +724,7 @@ $custom = [
       'optgroup' => 'event_standard',
     ],
     'event_attended' => [
-      'label' => ts('Number of events attended', ['domain' => 'hu.elelmiszerbank.sumfields']),
+      'label' => ts('Number of events attended', ['domain' => 'hu.es-progress.sumfields']),
       'data_type' => 'Int',
       'html_type' => 'Text',
       'weight' => '80',
@@ -765,20 +734,20 @@ $custom = [
       'optgroup' => 'event_standard',
     ],
     'event_attended_percent_total' => [
-      'label' => ts('Events attended as percent of total', ['domain' => 'hu.elelmiszerbank.sumfields']),
+      'label' => ts('Events attended as percent of total', ['domain' => 'hu.es-progress.sumfields']),
       'data_type' => 'Int',
       'html_type' => 'Text',
       'weight' => '85',
       'text_length' => '8',
       // Divide event_attended_total_lifetime / event_total, substituting 0 if either field is NULL. Then, only
       // take two decimal places and multiply by 100, so .8000 becomes 80.
-      'trigger_sql' => '(SELECT FORMAT(IFNULL(' . $event_attended_trigger_sql .
-        ', 0)' . ' / ' . 'IFNULL(' . $event_total_trigger_sql . ', 0), 2) * 100 AS summary_value)',
+      'trigger_sql' => '(SELECT FORMAT(IFNULL('.$event_attended_trigger_sql.
+        ', 0)'.' / '.'IFNULL('.$event_total_trigger_sql.', 0), 2) * 100 AS summary_value)',
       'trigger_table' => 'civicrm_participant',
       'optgroup' => 'event_standard',
     ],
     'event_noshow' => [
-      'label' => ts('Number of no-show events', ['domain' => 'hu.elelmiszerbank.sumfields']),
+      'label' => ts('Number of no-show events', ['domain' => 'hu.es-progress.sumfields']),
       'data_type' => 'Int',
       'html_type' => 'Text',
       'weight' => '90',
@@ -788,42 +757,42 @@ $custom = [
       'optgroup' => 'event_standard',
     ],
     'event_noshow_percent_total' => [
-      'label' => ts('No-shows as percent of total events', ['domain' => 'hu.elelmiszerbank.sumfields']),
+      'label' => ts('No-shows as percent of total events', ['domain' => 'hu.es-progress.sumfields']),
       'data_type' => 'Int',
       'html_type' => 'Text',
       'weight' => '95',
       'text_length' => '8',
-      'trigger_sql' => '(SELECT FORMAT(IFNULL(' . $event_noshow_trigger_sql .
-        ', 0)' . ' / ' . 'IFNULL(' . $event_total_trigger_sql . ', 0), 2) * 100 AS summary_value)',
+      'trigger_sql' => '(SELECT FORMAT(IFNULL('.$event_noshow_trigger_sql.
+        ', 0)'.' / '.'IFNULL('.$event_total_trigger_sql.', 0), 2) * 100 AS summary_value)',
       'trigger_table' => 'civicrm_participant',
       'optgroup' => 'event_standard',
     ],
   ],
   'optgroups' => [
     'fundraising' => [
-      'title' => ts('Contribution Fields', ['domain' => 'hu.elelmiszerbank.sumfields']),
+      'title' => ts('Contribution Fields', ['domain' => 'hu.es-progress.sumfields']),
       'component' => 'CiviContribute',
-      'fieldset' => ts('Fundraising', ['domain' => 'hu.elelmiszerbank.sumfields']),
+      'fieldset' => ts('Fundraising', ['domain' => 'hu.es-progress.sumfields']),
     ],
     'soft' => [
-      'title' => ts('Soft Credit Fields', ['domain' => 'hu.elelmiszerbank.sumfields']),
+      'title' => ts('Soft Credit Fields', ['domain' => 'hu.es-progress.sumfields']),
       'component' => 'CiviContribute',
-      'fieldset' => ts('Fundraising', ['domain' => 'hu.elelmiszerbank.sumfields']),
+      'fieldset' => ts('Fundraising', ['domain' => 'hu.es-progress.sumfields']),
     ],
     'membership' => [
-      'title' => ts('Membership Fields', ['domain' => 'hu.elelmiszerbank.sumfields']),
+      'title' => ts('Membership Fields', ['domain' => 'hu.es-progress.sumfields']),
       'component' => 'CiviMember',
-      'fieldset' => ts('Membership', ['domain' => 'hu.elelmiszerbank.sumfields']),
+      'fieldset' => ts('Membership', ['domain' => 'hu.es-progress.sumfields']),
     ],
     'event_standard' => [
-      'title' => ts('Standard Event Fields', ['domain' => 'hu.elelmiszerbank.sumfields']),
+      'title' => ts('Standard Event Fields', ['domain' => 'hu.es-progress.sumfields']),
       'component' => 'CiviEvent',
-      'fieldset' => ts('Events', ['domain' => 'hu.elelmiszerbank.sumfields']),
+      'fieldset' => ts('Events', ['domain' => 'hu.es-progress.sumfields']),
     ],
     'event_turnout' => [
-      'title' => ts('Event Turnout Fields', ['domain' => 'hu.elelmiszerbank.sumfields']),
+      'title' => ts('Event Turnout Fields', ['domain' => 'hu.es-progress.sumfields']),
       'component' => 'CiviEvent',
-      'fieldset' => ts('Events', ['domain' => 'hu.elelmiszerbank.sumfields']),
+      'fieldset' => ts('Events', ['domain' => 'hu.es-progress.sumfields']),
     ],
   ],
 ];

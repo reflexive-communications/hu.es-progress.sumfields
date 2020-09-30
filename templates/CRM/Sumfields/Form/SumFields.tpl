@@ -44,13 +44,16 @@
     <table class="form-layout-compressed">
       {foreach from=$fields key="name" item="description"}
         {if $name == 'active_fundraising_fields'}
-          <tr><div class="help">{ts}Fiscal Year can be set at <a href="/civicrm/admin/setting/date?action=reset=1">Administer &gt; Localization &gt; Date Formats</a>{/ts}</div></tr>
+          <tr>
+            <div class="help">{ts}Fiscal Year can be set at<a href="/civicrm/admin/setting/date?action=reset=1">Administer &gt; Localization &gt; Date Formats</a>{/ts}</div>
+          </tr>
         {/if}
         <tr class="crm-sumfields-form-block-sumfields_{$name}">
           <td class="label">{$form.$name.label}</td>
           <td class="value">
             {$form.$name.html}
-            {if $description}<div class="description">{$description}</div>{/if}
+            {if $description}
+              <div class="description">{$description}</div>{/if}
           </td>
         </tr>
       {/foreach}
@@ -58,63 +61,69 @@
   </fieldset>
 {/foreach}
 
-  <fieldset>
+<fieldset>
   <legend>Performance Settings</legend>
-    <table class="form-layout-compressed">
-      <tr id="performance_settings">
-        <td class="label">{$form.data_update_method.label}</td>
-        <td>{$form.data_update_method.html}
-        <div class="description">{ts}If 'Instantly' is selected, data will be more accurate but you might face some performance issues on large installations. <br/> If 'Whenever the cron job is run' is selected, Summary Fields will rely on each CiviCRM Cron job to process all calculations needed for all contacts.{/ts}</div></td>
-      </tr>
-      <tr id="exclude_from_logging">
-        <td class="label">{$form.exclude_from_logging.label}</td>
-        <td>{$form.exclude_from_logging.html}
-        <div class="description">{ts}When advanced logging is turned on, you can exclude Summary Fields from being logged to increase performance and reduce clutter.{/ts}</div></td>
-      </tr>
-      <tr id="when_to_apply_change">
-        <td class="label">{$form.when_to_apply_change.label}</td>
-        <td>{$form.when_to_apply_change.html}
-        <div class="description">{ts}Applying these settings via this form may cause your web server to time out. Applying changes on next scheduled job is recommended.{/ts}</div></td>
-      </tr>
-    </table>
- </fieldset>
+  <table class="form-layout-compressed">
+    <tr id="performance_settings">
+      <td class="label">{$form.data_update_method.label}</td>
+      <td>{$form.data_update_method.html}
+        <div class="description">{ts}If 'Instantly' is selected, data will be more accurate but you might face some performance issues on large installations.
+            <br/>
+            If 'Whenever the cron job is run' is selected, Summary Fields will rely on each CiviCRM Cron job to process all calculations needed for all contacts.{/ts}</div>
+      </td>
+    </tr>
+    <tr id="exclude_from_logging">
+      <td class="label">{$form.exclude_from_logging.label}</td>
+      <td>{$form.exclude_from_logging.html}
+        <div class="description">{ts}When advanced logging is turned on, you can exclude Summary Fields from being logged to increase performance and reduce clutter.{/ts}</div>
+      </td>
+    </tr>
+    <tr id="when_to_apply_change">
+      <td class="label">{$form.when_to_apply_change.label}</td>
+      <td>{$form.when_to_apply_change.html}
+        <div class="description">{ts}Applying these settings via this form may cause your web server to time out. Applying changes on next scheduled job is recommended.{/ts}</div>
+      </td>
+    </tr>
+  </table>
+</fieldset>
 
 <div class="crm-submit-buttons">{include file="CRM/common/formButtons.tpl" location="bottom"}</div>
 
 {literal}
-<style type="text/css">
-  #crm-container fieldset {
-    border: 1px solid #CFCEC3;
-    border-radius: 4px;
-  }
-</style>
-
-<script type="text/javascript">
-  CRM.$(window).load(function() {
-    if (CRM.$('#show_simplified').prop("checked") === true){
-      switch_simplified();
-    } else {
-      switch_normal();
+  <style type="text/css">
+    #crm-container fieldset {
+      border: 1px solid #CFCEC3;
+      border-radius: 4px;
     }
-    CRM.$('#show_simplified').change(function(){
-      if(this.checked) {
+  </style>
+  <script type="text/javascript">
+    CRM.$(window).load(function() {
+      if (CRM.$('#show_simplified').prop('checked') === true) {
         switch_simplified();
       } else {
         switch_normal();
       }
+      CRM.$('#show_simplified').change(function() {
+        if (this.checked) {
+          switch_simplified();
+        } else {
+          switch_normal();
+        }
+      });
     });
-  });
-  function switch_normal() {
+
+    function switch_normal() {
       CRM.$('.CRM_Sumfields_Form_SumFields tr.crm-sumfields-form-block-sumfields_active_fundraising_fields td.value input[id$="simplified"]').hide();
       CRM.$('.CRM_Sumfields_Form_SumFields tr.crm-sumfields-form-block-sumfields_active_fundraising_fields td.value label[for$="simplified"]').hide();
       CRM.$('.CRM_Sumfields_Form_SumFields tr.crm-sumfields-form-block-sumfields_active_fundraising_fields td.value input').not('[id$="simplified"]').show();
       CRM.$('.CRM_Sumfields_Form_SumFields tr.crm-sumfields-form-block-sumfields_active_fundraising_fields td.value label').not('[for$="simplified"]').show();
-  }
-  function switch_simplified() {
+    }
+
+    function switch_simplified() {
       CRM.$('.CRM_Sumfields_Form_SumFields tr.crm-sumfields-form-block-sumfields_active_fundraising_fields td.value input[id$="simplified"]').show();
       CRM.$('.CRM_Sumfields_Form_SumFields tr.crm-sumfields-form-block-sumfields_active_fundraising_fields td.value label[for$="simplified"]').show();
       CRM.$('.CRM_Sumfields_Form_SumFields tr.crm-sumfields-form-block-sumfields_active_fundraising_fields td.value input').not('[id$="simplified"]').show();
       CRM.$('.CRM_Sumfields_Form_SumFields tr.crm-sumfields-form-block-sumfields_active_fundraising_fields td.value label').not('[for$="simplified"]').show();
-  }
-</script>
+    }
+  </script>
 {/literal}
