@@ -1,25 +1,29 @@
 <?xml version="1.0"?>
 <extension key="hu.es-progress.sumfields" type="module">
-  <file>sumfields</file>
-  <name>Summary Fields</name>
-  <description>
-    This extension is based on the Summary Fields extension (net.ourpowerbase.sumfields v4.0.2) made by Jamie McClelland/Progressive Technology Project.
-  </description>
-  <license>GPL version 3</license>
-  <maintainer>
-    <author>Sandor Semsey</author>
-    <email>sandor@es-progress.hu</email>
-  </maintainer>
-  <releaseDate>2020-01-15</releaseDate>
-  <version>1.2</version>
-  <develStage>stable</develStage>
-  <compatibility>
-    <ver>5.7</ver>
-    <ver>5.18</ver>
-    <ver>5.20</ver>
-  </compatibility>
-  <comments>This extension adds custom data fields and triggers to your database. Disabling this extension will cause the custom data fields to be deleted and triggers removed.</comments>
-  <civix>
-    <namespace>CRM/Sumfields</namespace>
-  </civix>
+    <file>sumfields</file>
+    <name>Summary Fields</name>
+    <description>
+        This extension is based on the Summary Fields extension (net.ourpowerbase.sumfields v4.0.2) made by Jamie McClelland/Progressive Technology Project.
+    </description>
+    <license>GPL version 3</license>
+    <maintainer>
+        <author>Sandor Semsey</author>
+        <email>sandor@es-progress.hu</email>
+    </maintainer>
+    <urls>
+        <url desc="Main Extension Page">https://gitlab.com/semsey_sandor_civicrm/hu.es-progress.sumfields</url>
+        <url desc="Licensing">http://www.gnu.org/licenses/agpl-3.0.html</url>
+    </urls>
+    <releaseDate>2020-01-15</releaseDate>
+    <version>1.2</version>
+    <develStage>stable</develStage>
+    <compatibility>
+        <ver>5.7</ver>
+        <ver>5.18</ver>
+        <ver>5.20</ver>
+    </compatibility>
+    <comments>This extension adds custom data fields and triggers to your database. Disabling this extension will cause the custom data fields to be deleted and triggers removed.</comments>
+    <civix>
+        <namespace>CRM/Sumfields</namespace>
+    </civix>
 </extension>

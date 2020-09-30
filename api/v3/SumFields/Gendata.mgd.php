@@ -4,19 +4,19 @@
 // database as appropriate. For more details, see "hook_civicrm_managed" at:
 // http://wiki.civicrm.org/confluence/display/CRMDOC42/Hook+Reference
 return [
-  0 =>
-    [
-      'name' => 'Cron:SumFields.Gendata',
-      'entity' => 'Job',
-      'params' =>
+    0 =>
         [
-          'version' => 3,
-          'name' => 'Call SumFields.Gendata API',
-          'description' => 'Call SumFields.Gendata API',
-          'run_frequency' => 'Hourly',
-          'api_entity' => 'SumFields',
-          'api_action' => 'Gendata',
-          'parameters' => '',
+            'name' => 'Cron:SumFields.Gendata',
+            'entity' => 'Job',
+            'params' =>
+                [
+                    'version' => 3,
+                    'name' => 'Call SumFields.Gendata API',
+                    'description' => 'Call SumFields.Gendata API',
+                    'run_frequency' => 'Hourly',
+                    'api_entity' => 'SumFields',
+                    'api_action' => 'Gendata',
+                    'parameters' => '',
+                ],
         ],
-    ],
 ];

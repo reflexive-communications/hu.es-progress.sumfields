@@ -8,77 +8,77 @@
  */
 class CRM_Sumfields_ExtensionUtil
 {
-  const SHORT_NAME = "sumfields";
+    const SHORT_NAME = "sumfields";
 
-  const LONG_NAME = "hu.es-progress.sumfields";
+    const LONG_NAME = "hu.es-progress.sumfields";
 
-  const CLASS_PREFIX = "CRM_Sumfields";
+    const CLASS_PREFIX = "CRM_Sumfields";
 
-  /**
-   * Translate a string using the extension's domain.
-   *
-   * If the extension doesn't have a specific translation
-   * for the string, fallback to the default translations.
-   *
-   * @param string $text
-   *   Canonical message text (generally en_US).
-   * @param array $params
-   *
-   * @return string
-   *   Translated text.
-   * @see ts
-   */
-  public static function ts($text, $params = [])
-  {
-    if (!array_key_exists('domain', $params)) {
-      $params['domain'] = [self::LONG_NAME, null];
+    /**
+     * Translate a string using the extension's domain.
+     *
+     * If the extension doesn't have a specific translation
+     * for the string, fallback to the default translations.
+     *
+     * @param string $text
+     *   Canonical message text (generally en_US).
+     * @param array $params
+     *
+     * @return string
+     *   Translated text.
+     * @see ts
+     */
+    public static function ts($text, $params = [])
+    {
+        if (!array_key_exists('domain', $params)) {
+            $params['domain'] = [self::LONG_NAME, null];
+        }
+
+        return ts($text, $params);
     }
 
-    return ts($text, $params);
-  }
+    /**
+     * Get the URL of a resource file (in this extension).
+     *
+     * @param string|NULL $file
+     *   Ex: 'css/foo.css'.
+     *
+     * @return string
+     *   Ex: 'http://example.org/sites/default/ext/org.example.foo/css/foo.css'.
+     */
+    public static function url($file = null)
+    {
+        return CRM_Core_Resources::singleton()->getUrl(self::LONG_NAME, $file);
+    }
 
-  /**
-   * Get the URL of a resource file (in this extension).
-   *
-   * @param string|NULL $file
-   *   Ex: 'css/foo.css'.
-   *
-   * @return string
-   *   Ex: 'http://example.org/sites/default/ext/org.example.foo/css/foo.css'.
-   */
-  public static function url($file = null)
-  {
-    return CRM_Core_Resources::singleton()->getUrl(self::LONG_NAME, $file);
-  }
+    /**
+     * Get the path of a resource file (in this extension).
+     *
+     * @param string|NULL $file
+     *   Ex: 'css/foo.css'.
+     *
+     * @return string
+     *   Ex: '/var/www/example.org/sites/default/ext/org.example.foo/css/foo.css'.
+     */
+    public static function path($file = null)
+    {
+        // return CRM_Core_Resources::singleton()->getPath(self::LONG_NAME, $file);
+        return __DIR__.($path === null ? '' : (DIRECTORY_SEPARATOR.$file));
+    }
 
-  /**
-   * Get the path of a resource file (in this extension).
-   *
-   * @param string|NULL $file
-   *   Ex: 'css/foo.css'.
-   *
-   * @return string
-   *   Ex: '/var/www/example.org/sites/default/ext/org.example.foo/css/foo.css'.
-   */
-  public static function path($file = null)
-  {
-    // return CRM_Core_Resources::singleton()->getPath(self::LONG_NAME, $file);
-    return __DIR__.($path === null ? '' : (DIRECTORY_SEPARATOR.$file));
-  }
-
-  /**
-   * Get the name of a class within this extension.
-   *
-   * @param string $suffix
-   *   Ex: 'Page_HelloWorld' or 'Page\\HelloWorld'.
-   *
-   * @return string
-   *   Ex: 'CRM_Foo_Page_HelloWorld'.
-   */
-  public static function findClass($suffix)
-  {
-    return self::CLASS_PREFIX.'_'.str_replace('\\', '_', $suffix);
-  }
+    /**
+     * Get the name of a class within this extension.
+     *
+     * @param string $suffix
+     *   Ex: 'Page_HelloWorld' or 'Page\\HelloWorld'.
+     *
+     * @return string
+     *   Ex: 'CRM_Foo_Page_HelloWorld'.
+     */
+    public static function findClass($suffix)
+    {
+        return self::CLASS_PREFIX.'_'.str_replace('\\', '_', $suffix);
+    }
 
 }
 
@@ -91,25 +91,25 @@ use CRM_Sumfields_ExtensionUtil as E;
  */
 function _sumfields_civix_civicrm_config(&$config = null)
 {
-  static $configured = false;
-  if ($configured) {
-    return;
-  }
-  $configured = true;
+    static $configured = false;
+    if ($configured) {
+        return;
+    }
+    $configured = true;
 
-  $template =& CRM_Core_Smarty::singleton();
+    $template =& CRM_Core_Smarty::singleton();
 
-  $extRoot = dirname(__FILE__).DIRECTORY_SEPARATOR;
-  $extDir = $extRoot.'templates';
+    $extRoot = dirname(__FILE__).DIRECTORY_SEPARATOR;
+    $extDir = $extRoot.'templates';
 
-  if (is_array($template->template_dir)) {
-    array_unshift($template->template_dir, $extDir);
-  } else {
-    $template->template_dir = [$extDir, $template->template_dir];
-  }
+    if (is_array($template->template_dir)) {
+        array_unshift($template->template_dir, $extDir);
+    } else {
+        $template->template_dir = [$extDir, $template->template_dir];
+    }
 
-  $include_path = $extRoot.PATH_SEPARATOR.get_include_path();
-  set_include_path($include_path);
+    $include_path = $extRoot.PATH_SEPARATOR.get_include_path();
+    set_include_path($include_path);
 }
 
 /**
@@ -121,9 +121,9 @@ function _sumfields_civix_civicrm_config(&$config = null)
  */
 function _sumfields_civix_civicrm_xmlMenu(&$files)
 {
-  foreach (_sumfields_civix_glob(__DIR__.'/xml/Menu/*.xml') as $file) {
-    $files[] = $file;
-  }
+    foreach (_sumfields_civix_glob(__DIR__.'/xml/Menu/*.xml') as $file) {
+        $files[] = $file;
+    }
 }
 
 /**
@@ -133,10 +133,10 @@ function _sumfields_civix_civicrm_xmlMenu(&$files)
  */
 function _sumfields_civix_civicrm_install()
 {
-  _sumfields_civix_civicrm_config();
-  if ($upgrader = _sumfields_civix_upgrader()) {
-    $upgrader->onInstall();
-  }
+    _sumfields_civix_civicrm_config();
+    if ($upgrader = _sumfields_civix_upgrader()) {
+        $upgrader->onInstall();
+    }
 }
 
 /**
@@ -146,12 +146,12 @@ function _sumfields_civix_civicrm_install()
  */
 function _sumfields_civix_civicrm_postInstall()
 {
-  _sumfields_civix_civicrm_config();
-  if ($upgrader = _sumfields_civix_upgrader()) {
-    if (is_callable([$upgrader, 'onPostInstall'])) {
-      $upgrader->onPostInstall();
+    _sumfields_civix_civicrm_config();
+    if ($upgrader = _sumfields_civix_upgrader()) {
+        if (is_callable([$upgrader, 'onPostInstall'])) {
+            $upgrader->onPostInstall();
+        }
     }
-  }
 }
 
 /**
@@ -161,10 +161,10 @@ function _sumfields_civix_civicrm_postInstall()
  */
 function _sumfields_civix_civicrm_uninstall()
 {
-  _sumfields_civix_civicrm_config();
-  if ($upgrader = _sumfields_civix_upgrader()) {
-    $upgrader->onUninstall();
-  }
+    _sumfields_civix_civicrm_config();
+    if ($upgrader = _sumfields_civix_upgrader()) {
+        $upgrader->onUninstall();
+    }
 }
 
 /**
@@ -174,12 +174,12 @@ function _sumfields_civix_civicrm_uninstall()
  */
 function _sumfields_civix_civicrm_enable()
 {
-  _sumfields_civix_civicrm_config();
-  if ($upgrader = _sumfields_civix_upgrader()) {
-    if (is_callable([$upgrader, 'onEnable'])) {
-      $upgrader->onEnable();
+    _sumfields_civix_civicrm_config();
+    if ($upgrader = _sumfields_civix_upgrader()) {
+        if (is_callable([$upgrader, 'onEnable'])) {
+            $upgrader->onEnable();
+        }
     }
-  }
 }
 
 /**
@@ -190,12 +190,12 @@ function _sumfields_civix_civicrm_enable()
  */
 function _sumfields_civix_civicrm_disable()
 {
-  _sumfields_civix_civicrm_config();
-  if ($upgrader = _sumfields_civix_upgrader()) {
-    if (is_callable([$upgrader, 'onDisable'])) {
-      $upgrader->onDisable();
+    _sumfields_civix_civicrm_config();
+    if ($upgrader = _sumfields_civix_upgrader()) {
+        if (is_callable([$upgrader, 'onDisable'])) {
+            $upgrader->onDisable();
+        }
     }
-  }
 }
 
 /**
@@ -211,9 +211,9 @@ function _sumfields_civix_civicrm_disable()
  */
 function _sumfields_civix_civicrm_upgrade($op, CRM_Queue_Queue $queue = null)
 {
-  if ($upgrader = _sumfields_civix_upgrader()) {
-    return $upgrader->onUpgrade($op, $queue);
-  }
+    if ($upgrader = _sumfields_civix_upgrader()) {
+        return $upgrader->onUpgrade($op, $queue);
+    }
 }
 
 /**
@@ -221,11 +221,11 @@ function _sumfields_civix_civicrm_upgrade($op, CRM_Queue_Queue $queue = null)
  */
 function _sumfields_civix_upgrader()
 {
-  if (!file_exists(__DIR__.'/CRM/Sumfields/Upgrader.php')) {
-    return null;
-  } else {
-    return CRM_Sumfields_Upgrader_Base::instance();
-  }
+    if (!file_exists(__DIR__.'/CRM/Sumfields/Upgrader.php')) {
+        return null;
+    } else {
+        return CRM_Sumfields_Upgrader_Base::instance();
+    }
 }
 
 /**
@@ -241,32 +241,32 @@ function _sumfields_civix_upgrader()
  */
 function _sumfields_civix_find_files($dir, $pattern)
 {
-  if (is_callable(['CRM_Utils_File', 'findFiles'])) {
-    return CRM_Utils_File::findFiles($dir, $pattern);
-  }
-
-  $todos = [$dir];
-  $result = [];
-  while (!empty($todos)) {
-    $subdir = array_shift($todos);
-    foreach (_sumfields_civix_glob("$subdir/$pattern") as $match) {
-      if (!is_dir($match)) {
-        $result[] = $match;
-      }
+    if (is_callable(['CRM_Utils_File', 'findFiles'])) {
+        return CRM_Utils_File::findFiles($dir, $pattern);
     }
-    if ($dh = opendir($subdir)) {
-      while (false !== ($entry = readdir($dh))) {
-        $path = $subdir.DIRECTORY_SEPARATOR.$entry;
-        if ($entry{0} == '.') {
-        } elseif (is_dir($path)) {
-          $todos[] = $path;
+
+    $todos = [$dir];
+    $result = [];
+    while (!empty($todos)) {
+        $subdir = array_shift($todos);
+        foreach (_sumfields_civix_glob("$subdir/$pattern") as $match) {
+            if (!is_dir($match)) {
+                $result[] = $match;
+            }
         }
-      }
-      closedir($dh);
+        if ($dh = opendir($subdir)) {
+            while (false !== ($entry = readdir($dh))) {
+                $path = $subdir.DIRECTORY_SEPARATOR.$entry;
+                if ($entry{0} == '.') {
+                } elseif (is_dir($path)) {
+                    $todos[] = $path;
+                }
+            }
+            closedir($dh);
+        }
     }
-  }
 
-  return $result;
+    return $result;
 }
 
 /**
@@ -278,19 +278,19 @@ function _sumfields_civix_find_files($dir, $pattern)
  */
 function _sumfields_civix_civicrm_managed(&$entities)
 {
-  $mgdFiles = _sumfields_civix_find_files(__DIR__, '*.mgd.php');
-  foreach ($mgdFiles as $file) {
-    $es = include $file;
-    foreach ($es as $e) {
-      if (empty($e['module'])) {
-        $e['module'] = E::LONG_NAME;
-      }
-      $entities[] = $e;
-      if (empty($e['params']['version'])) {
-        $e['params']['version'] = '3';
-      }
+    $mgdFiles = _sumfields_civix_find_files(__DIR__, '*.mgd.php');
+    foreach ($mgdFiles as $file) {
+        $es = include $file;
+        foreach ($es as $e) {
+            if (empty($e['module'])) {
+                $e['module'] = E::LONG_NAME;
+            }
+            $entities[] = $e;
+            if (empty($e['params']['version'])) {
+                $e['params']['version'] = '3';
+            }
+        }
     }
-  }
 }
 
 /**
@@ -304,23 +304,23 @@ function _sumfields_civix_civicrm_managed(&$entities)
  */
 function _sumfields_civix_civicrm_caseTypes(&$caseTypes)
 {
-  if (!is_dir(__DIR__.'/xml/case')) {
-    return;
-  }
-
-  foreach (_sumfields_civix_glob(__DIR__.'/xml/case/*.xml') as $file) {
-    $name = preg_replace('/\.xml$/', '', basename($file));
-    if ($name != CRM_Case_XMLProcessor::mungeCaseType($name)) {
-      $errorMessage = sprintf("Case-type file name is malformed (%s vs %s)", $name, CRM_Case_XMLProcessor::mungeCaseType($name));
-      CRM_Core_Error::fatal($errorMessage);
-      // throw new CRM_Core_Exception($errorMessage);
+    if (!is_dir(__DIR__.'/xml/case')) {
+        return;
     }
-    $caseTypes[$name] = [
-      'module' => E::LONG_NAME,
-      'name' => $name,
-      'file' => $file,
-    ];
-  }
+
+    foreach (_sumfields_civix_glob(__DIR__.'/xml/case/*.xml') as $file) {
+        $name = preg_replace('/\.xml$/', '', basename($file));
+        if ($name != CRM_Case_XMLProcessor::mungeCaseType($name)) {
+            $errorMessage = sprintf("Case-type file name is malformed (%s vs %s)", $name, CRM_Case_XMLProcessor::mungeCaseType($name));
+            CRM_Core_Error::fatal($errorMessage);
+            // throw new CRM_Core_Exception($errorMessage);
+        }
+        $caseTypes[$name] = [
+            'module' => E::LONG_NAME,
+            'name' => $name,
+            'file' => $file,
+        ];
+    }
 }
 
 /**
@@ -334,19 +334,19 @@ function _sumfields_civix_civicrm_caseTypes(&$caseTypes)
  */
 function _sumfields_civix_civicrm_angularModules(&$angularModules)
 {
-  if (!is_dir(__DIR__.'/ang')) {
-    return;
-  }
-
-  $files = _sumfields_civix_glob(__DIR__.'/ang/*.ang.php');
-  foreach ($files as $file) {
-    $name = preg_replace(':\.ang\.php$:', '', basename($file));
-    $module = include $file;
-    if (empty($module['ext'])) {
-      $module['ext'] = E::LONG_NAME;
+    if (!is_dir(__DIR__.'/ang')) {
+        return;
     }
-    $angularModules[$name] = $module;
-  }
+
+    $files = _sumfields_civix_glob(__DIR__.'/ang/*.ang.php');
+    foreach ($files as $file) {
+        $name = preg_replace(':\.ang\.php$:', '', basename($file));
+        $module = include $file;
+        if (empty($module['ext'])) {
+            $module['ext'] = E::LONG_NAME;
+        }
+        $angularModules[$name] = $module;
+    }
 }
 
 /**
@@ -365,9 +365,9 @@ function _sumfields_civix_civicrm_angularModules(&$angularModules)
  */
 function _sumfields_civix_glob($pattern)
 {
-  $result = glob($pattern);
+    $result = glob($pattern);
 
-  return is_array($result) ? $result : [];
+    return is_array($result) ? $result : [];
 }
 
 /**
@@ -379,35 +379,35 @@ function _sumfields_civix_glob($pattern)
  */
 function _sumfields_civix_insert_navigation_menu(&$menu, $path, $item)
 {
-  // If we are done going down the path, insert menu
-  if (empty($path)) {
-    $menu[] = [
-      'attributes' => array_merge(
-        [
-          'label' => CRM_Utils_Array::value('name', $item),
-          'active' => 1,
-        ],
-        $item
-      ),
-    ];
+    // If we are done going down the path, insert menu
+    if (empty($path)) {
+        $menu[] = [
+            'attributes' => array_merge(
+                [
+                    'label' => CRM_Utils_Array::value('name', $item),
+                    'active' => 1,
+                ],
+                $item
+            ),
+        ];
 
-    return true;
-  } else {
-    // Find an recurse into the next level down
-    $found = false;
-    $path = explode('/', $path);
-    $first = array_shift($path);
-    foreach ($menu as $key => &$entry) {
-      if ($entry['attributes']['name'] == $first) {
-        if (!isset($entry['child'])) {
-          $entry['child'] = [];
+        return true;
+    } else {
+        // Find an recurse into the next level down
+        $found = false;
+        $path = explode('/', $path);
+        $first = array_shift($path);
+        foreach ($menu as $key => &$entry) {
+            if ($entry['attributes']['name'] == $first) {
+                if (!isset($entry['child'])) {
+                    $entry['child'] = [];
+                }
+                $found = _sumfields_civix_insert_navigation_menu($entry['child'], implode('/', $path), $item, $key);
+            }
         }
-        $found = _sumfields_civix_insert_navigation_menu($entry['child'], implode('/', $path), $item, $key);
-      }
-    }
 
-    return $found;
-  }
+        return $found;
+    }
 }
 
 /**
@@ -415,9 +415,9 @@ function _sumfields_civix_insert_navigation_menu(&$menu, $path, $item)
  */
 function _sumfields_civix_navigationMenu(&$nodes)
 {
-  if (!is_callable(['CRM_Core_BAO_Navigation', 'fixNavigationMenu'])) {
-    _sumfields_civix_fixNavigationMenu($nodes);
-  }
+    if (!is_callable(['CRM_Core_BAO_Navigation', 'fixNavigationMenu'])) {
+        _sumfields_civix_fixNavigationMenu($nodes);
+    }
 }
 
 /**
@@ -426,37 +426,37 @@ function _sumfields_civix_navigationMenu(&$nodes)
  */
 function _sumfields_civix_fixNavigationMenu(&$nodes)
 {
-  $maxNavID = 1;
-  array_walk_recursive(
-    $nodes,
-    function ($item, $key) use (&$maxNavID) {
-      if ($key === 'navID') {
-        $maxNavID = max($maxNavID, $item);
-      }
-    }
-  );
-  _sumfields_civix_fixNavigationMenuItems($nodes, $maxNavID, null);
+    $maxNavID = 1;
+    array_walk_recursive(
+        $nodes,
+        function ($item, $key) use (&$maxNavID) {
+            if ($key === 'navID') {
+                $maxNavID = max($maxNavID, $item);
+            }
+        }
+    );
+    _sumfields_civix_fixNavigationMenuItems($nodes, $maxNavID, null);
 }
 
 function _sumfields_civix_fixNavigationMenuItems(&$nodes, &$maxNavID, $parentID)
 {
-  $origKeys = array_keys($nodes);
-  foreach ($origKeys as $origKey) {
-    if (!isset($nodes[$origKey]['attributes']['parentID']) && $parentID !== null) {
-      $nodes[$origKey]['attributes']['parentID'] = $parentID;
+    $origKeys = array_keys($nodes);
+    foreach ($origKeys as $origKey) {
+        if (!isset($nodes[$origKey]['attributes']['parentID']) && $parentID !== null) {
+            $nodes[$origKey]['attributes']['parentID'] = $parentID;
+        }
+        // If no navID, then assign navID and fix key.
+        if (!isset($nodes[$origKey]['attributes']['navID'])) {
+            $newKey = ++$maxNavID;
+            $nodes[$origKey]['attributes']['navID'] = $newKey;
+            $nodes[$newKey] = $nodes[$origKey];
+            unset($nodes[$origKey]);
+            $origKey = $newKey;
+        }
+        if (isset($nodes[$origKey]['child']) && is_array($nodes[$origKey]['child'])) {
+            _sumfields_civix_fixNavigationMenuItems($nodes[$origKey]['child'], $maxNavID, $nodes[$origKey]['attributes']['navID']);
+        }
     }
-    // If no navID, then assign navID and fix key.
-    if (!isset($nodes[$origKey]['attributes']['navID'])) {
-      $newKey = ++$maxNavID;
-      $nodes[$origKey]['attributes']['navID'] = $newKey;
-      $nodes[$newKey] = $nodes[$origKey];
-      unset($nodes[$origKey]);
-      $origKey = $newKey;
-    }
-    if (isset($nodes[$origKey]['child']) && is_array($nodes[$origKey]['child'])) {
-      _sumfields_civix_fixNavigationMenuItems($nodes[$origKey]['child'], $maxNavID, $nodes[$origKey]['attributes']['navID']);
-    }
-  }
 }
 
 /**
@@ -466,14 +466,14 @@ function _sumfields_civix_fixNavigationMenuItems(&$nodes, &$maxNavID, $parentID)
  */
 function _sumfields_civix_civicrm_alterSettingsFolders(&$metaDataFolders = null)
 {
-  static $configured = false;
-  if ($configured) {
-    return;
-  }
-  $configured = true;
+    static $configured = false;
+    if ($configured) {
+        return;
+    }
+    $configured = true;
 
-  $settingsDir = __DIR__.DIRECTORY_SEPARATOR.'settings';
-  if (is_dir($settingsDir) && !in_array($settingsDir, $metaDataFolders)) {
-    $metaDataFolders[] = $settingsDir;
-  }
+    $settingsDir = __DIR__.DIRECTORY_SEPARATOR.'settings';
+    if (is_dir($settingsDir) && !in_array($settingsDir, $metaDataFolders)) {
+        $metaDataFolders[] = $settingsDir;
+    }
 }
